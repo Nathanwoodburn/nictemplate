@@ -14,8 +14,9 @@ def send_report(path):
 def index():
     # Get host from request
     host = request.headers.get('host')
+    tld = host.split('.')[-1]
 
-    return render_template('index.html', tld=host)
+    return render_template('index.html', tld=tld)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host='0.0.0.0')
