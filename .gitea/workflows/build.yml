@@ -20,7 +20,6 @@ jobs:
           apt-get install docker-ce-cli -y          
       - name: Build Docker image
         run : |          
-          cd master
           echo "${{ secrets.DOCKERGIT_TOKEN }}" | docker login git.woodburn.au -u nathanwoodburn --password-stdin
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           tag=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
