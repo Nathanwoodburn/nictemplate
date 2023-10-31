@@ -9,3 +9,10 @@ footer {
     line-height: 60px;
     padding-left: 5%;
 }
+span.right-footer {
+    float: right;
+    margin-right: 5%;
+}
+span.right-footer a {
+    color: #fff;
+}
