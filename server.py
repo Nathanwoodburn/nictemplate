@@ -15,7 +15,9 @@ def index():
     # Get host from request
     host = request.headers.get('host')
     tld = host.split('.')[-1]
-
+    tld = tld.split(':')[0]
+    if tld == 'localhost' or tld == '1':
+        tld = 'example'
     return render_template('index.html', tld=tld)
 
 if __name__ == '__main__':
