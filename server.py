@@ -20,8 +20,7 @@ def index():
     tld = tld.split(':')[0]
     if tld == 'localhost' or tld == '1':
         tld = 'example'
-        https_redirect = ""
-
+        https_redirect = "<script>console.log('https.js not loaded on localhost')</script>"
 
     return render_template('index.html', tld=tld, https_redirect=https_redirect)
 
