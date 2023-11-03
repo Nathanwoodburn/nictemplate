@@ -1,6 +1,7 @@
 from flask import Flask, make_response, redirect, request, jsonify, render_template, send_from_directory
 import os
 import dotenv
+import requests
 
 app = Flask(__name__)
 dotenv.load_dotenv()
@@ -19,10 +20,22 @@ def index():
     tld = host.split('.')[-1]
     tld = tld.split(':')[0]
     if tld == 'localhost' or tld == '1':
-        tld = 'example'
+        tld = 'freeconcept'
         https_redirect = "<script>console.log('https.js not loaded on localhost')</script>"
 
-    return render_template('index.html', tld=tld, https_redirect=https_redirect)
+    # Count sales
+    sales = requests.get('https://reg.woodburn.au/api?action=getMyStaked', headers={'Authorization': 'Bearer ' + os.getenv('reg_auth')})
+    sales = sales.json()
+    if 'data' not in sales:
+        return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=0)
+
+    tld_sales = 0
+    sales = sales['data']
+    for sale in sales:
+        if sale['tld'] == tld:
+            print(sale)
+            tld_sales = sale['slds']
+    return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=tld_sales)
 
 # 404 catch all
 @app.errorhandler(404)
