@@ -23,10 +23,13 @@ def index():
         tld = 'freeconcept'
         https_redirect = "<script>console.log('https.js not loaded on localhost')</script>"
 
+
     # Count sales
     sales = requests.get('https://reg.woodburn.au/api?action=getMyStaked', headers={'Authorization': 'Bearer ' + os.getenv('reg_auth')})
     sales = sales.json()
     if 'data' not in sales:
+        if tld.startswith('xn--'):
+            tld = tld.encode('ascii').decode('idna')
         return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=0)
 
     tld_sales = 0
@@ -35,6 +38,10 @@ def index():
         if sale['tld'] == tld:
             print(sale)
             tld_sales = sale['slds']
+
+    if tld.startswith('xn--'):
+        tld = tld.encode('ascii').decode('idna')
+
     return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=tld_sales)
 
 # 404 catch all
