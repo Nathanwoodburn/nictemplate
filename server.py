@@ -2,6 +2,7 @@ from flask import Flask, make_response, redirect, request, jsonify, render_templ
 import os
 import dotenv
 import requests
+import datetime
 
 app = Flask(__name__)
 dotenv.load_dotenv()
@@ -13,6 +14,7 @@ def send_report(path):
 
 @app.route('/')
 def index():
+    year = datetime.datetime.now().year
     https_redirect="<script src=\"https://nathan.woodburn/https.js\"></script>"
 
     # Get host from request
@@ -30,7 +32,7 @@ def index():
     if 'data' not in sales:
         if tld.startswith('xn--'):
             tld = tld.encode('ascii').decode('idna')
-        return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=0)
+        return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=0, year=year)
 
     tld_sales = 0
     sales = sales['data']
@@ -42,7 +44,7 @@ def index():
     if tld.startswith('xn--'):
         tld = tld.encode('ascii').decode('idna')
 
-    return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=tld_sales)
+    return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=tld_sales, year=year)
 
 # 404 catch all
 @app.errorhandler(404)
