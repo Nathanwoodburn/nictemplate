@@ -7,6 +7,8 @@ import datetime
 app = Flask(__name__)
 dotenv.load_dotenv()
 
+not_for_sale = ['australia']
+
 @app.route('/assets/<path:path>')
 def send_report(path):
     return send_from_directory('templates/assets', path)
@@ -25,6 +27,9 @@ def index():
         tld = 'freeconcept'
         https_redirect = "<script>console.log('https.js not loaded on localhost')</script>"
 
+    
+    if tld in not_for_sale:
+        return render_template('not_for_sale.html', tld=tld, https_redirect=https_redirect, year=year)
 
     # Count sales
     sales = requests.get('https://reg.woodburn.au/api?action=getMyStaked', headers={'Authorization': 'Bearer ' + os.getenv('reg_auth')})
@@ -38,11 +43,14 @@ def index():
     sales = sales['data']
     for sale in sales:
         if sale['tld'] == tld:
-            print(sale)
             tld_sales = sale['slds']
 
     if tld.startswith('xn--'):
         tld = tld.encode('ascii').decode('idna')
+
+    if tld_sales == 0:
+        not_for_sale.append(tld)
+        return render_template('not_for_sale.html', tld=tld, https_redirect=https_redirect, year=year)
 
     return render_template('index.html', tld=tld, https_redirect=https_redirect, sales=tld_sales, year=year)
 
