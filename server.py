@@ -7,7 +7,7 @@ import datetime
 app = Flask(__name__)
 dotenv.load_dotenv()
 
-not_for_sale = ['australia']
+not_for_sale = ['australia', 'newzealand']
 
 @app.route('/assets/<path:path>')
 def send_report(path):
