@@ -27,12 +27,12 @@
     </nav>
     <header>
         <div class="container">
-            <div style="text-align: center;">
+            <div style="text-align: center;margin-top: 50px;">
                 <h1 class="display-1 text-center" style="font-weight: bold;margin: 0px;">.{{tld}}/ domains</h1><span style="font-weight: bold;font-size: 40px;"><br>The domain name for your next project<br><br></span>
             </div>
         </div>
     </header>
-    <section style="font-size: 25px;">
+    <section style="margin-top: 75px;font-size: larger;">
         <div class="text-center" id="pricing">
             <p class="text-center" style="font-weight: bold;">.{{tld}}/ domains now available for registration at HNSAU.</p>
             <span>Get yourname.{{tld}}/</span>
@@ -41,6 +41,14 @@
     </section>
     <footer style="font-size: 25px;background: black;color: white;margin-top: 250px;">
         <span>© {{year}} .{{tld}}/</span>
+        <style>
+            /* Hide right footer on mobiles */
+            @media (max-width: 768px) {
+                .right-footer {
+                    display: none;
+                }
+            }
+        </style>
         <span class="right-footer">
             Domains by 
             <a href="https://hns.au" target="_blank">HNSAU/</a>

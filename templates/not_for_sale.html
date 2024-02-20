@@ -27,12 +27,14 @@
     </nav>
     <header>
         <div class="container">
-            <div style="text-align: center;">
-                <h1 class="display-1 text-center" style="font-weight: bold;margin: 0px;">.{{tld}}/ domains</h1><span style="font-weight: bold;font-size: 40px;"><br>.{{tld}}/ domains are not available for registration yet.<br><br></span>
+            <div style="text-align: center;margin-top: 50px;">
+                <h1 class="display-1 text-center" style="font-weight: bold;margin: 0px;">.{{tld}}/ domains</h1>
+                <div class="spacer" style="height: 100px;"></div>
+                <h2 style="font-weight: bold;">.{{tld}}/ domains are not available for registration yet.<br><br></h2>
             </div>
         </div>
     </header>
-    <section style="font-size: 25px;">
+    <section style="margin-top: 75px;">
         <div class="text-center" id="pricing" style="max-width: 800px; margin: auto;">
             <p class="text-center" style="font-weight: bold;">If you're interested in using a subdomain of {{tld}}/ for your project, please feel free to reach out to us.<br>We'd be happy to help you set up a second-level domain (SLD).</p>
             <br>
@@ -41,6 +43,14 @@
     </section>
     <footer style="font-size: 25px;background: black;color: white;margin-top: 250px;">
         <span>© {{year}} .{{tld}}/</span>
+        <style>
+            /* Hide right footer on mobiles */
+            @media (max-width: 768px) {
+                .right-footer {
+                    display: none;
+                }
+            }
+        </style>
         <span class="right-footer">
             Domains by 
             <a href="https://hns.au" target="_blank">HNSAU/</a>
